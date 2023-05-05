@@ -1,8 +1,50 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using DevExtreme.AspNet.Mvc;
+<h2>People</h2>
+<hr />
+<div class="center">
+    @(
+        Html.DevExtreme().DataGrid<Ndumiso_Assessment_2023_05_05.Models.Person>()
+                .ID("gridContainer")
+                .ShowBorders(true)
+                .Paging(_ => _.PageSize(10))
+                .HoverStateEnabled(true)
+                .ColumnWidth(200)
+                .Editing(_ =>
+                {
+                    _.Mode(GridEditMode.Form);
+                    _.UseIcons(true);
+                    _.AllowUpdating(true);
+                    _.AllowAdding(true);
+                    _.AllowDeleting(true);
+                })
+                .Columns(_ =>
+                {
+                    _.AddFor(_ => _.Id)
+                        .Alignment(HorizontalAlignment.Left);
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+                    _.AddFor(_ => _.Name);
+
+                    _.AddFor(_ => _.Age)
+                        .Alignment(HorizontalAlignment.Left);
+                })
+                .DataSource(_ => _.Mvc()
+                .Controller("PeopleAPI")
+                .LoadAction("Get")
+                .InsertAction("Post")
+                .UpdateAction("Put")
+                .DeleteAction("Delete")
+                .Key("Id")
+                )
+        )
 </div>
+<style> 
+    .center {
+        margin: auto;
+        width: 60%;
+    }
+
+    .dx-datagrid-headers {
+        background-color:darkblue;
+        color: white;
+    }
+</style>
