@@ -24,6 +24,8 @@
 
             JsonConvert.PopulateObject(values, newPerson);
 
+            newPerson.Id = MockData.people.Last().Id + 1;
+
             MockData.people.Add(newPerson);
 
             return this.Ok(newPerson);

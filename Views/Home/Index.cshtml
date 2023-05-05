@@ -20,6 +20,11 @@
                 .Columns(_ =>
                 {
                     _.AddFor(_ => _.Id)
+                        .AllowEditing(false)
+                        .EditorOptions(new
+                        {
+                            placeholder = "Will be generated.",
+                        })
                         .Alignment(HorizontalAlignment.Left);
 
                     _.AddFor(_ => _.Name);
